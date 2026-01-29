@@ -1,15 +1,34 @@
-# Vault Issuer using ServiceAccount authentication
+# Vault Issuer for diagon.ally domain
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: vault-issuer
+  name: vault-issuer-diagon
   namespace: external-resources
   annotations:
     avp.kubernetes.io/path: "secret/data/infra/vault/prod"
 spec:
   vault:
     server: <vault_url>
-    path: <pki_sign_int_path>
+    path: <pki_sign_int_path_diagon>
+    auth:
+      kubernetes:
+        mountPath: /v1/auth/kubernetes
+        role: cert-manager-pki
+        serviceAccountRef:
+          name: cert-manager
+---
+# Vault Issuer for styx.myth domain
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-issuer-styx
+  namespace: external-resources
+  annotations:
+    avp.kubernetes.io/path: "secret/data/infra/vault/prod"
+spec:
+  vault:
+    server: <vault_url>
+    path: <pki_sign_int_path_styx>
     auth:
       kubernetes:
         mountPath: /v1/auth/kubernetes

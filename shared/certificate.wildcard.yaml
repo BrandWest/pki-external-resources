@@ -9,7 +9,7 @@ spec:
   duration: 2160h # 90 days
   renewBefore: 360h # 15 days
   issuerRef:
-    name: vault-issuer
+    name: vault-issuer-diagon
     kind: Issuer
   commonName: "*.diagon.ally"
   dnsNames:
@@ -27,7 +27,7 @@ spec:
   duration: 2160h # 90 days
   renewBefore: 360h # 15 days
   issuerRef:
-    name: vault-issuer
+    name: vault-issuer-styx
     kind: Issuer
   commonName: <path:secret/data/infra/network/prod#wildcard_domain_styx>
   dnsNames:
