@@ -20,7 +20,7 @@ metadata:
   name: nextcloud-external
   namespace: external-resources
   annotations:
-    avp.kubernetes.io/path: ""
+    avp.kubernetes.io/path: "secret/data/infra/truenas/prod"
 subsets:
   - addresses:
       - ip: <truenas_ip>
