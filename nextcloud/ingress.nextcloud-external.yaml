@@ -1,0 +1,63 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: external-resources-server-ingress
+  namespace: external-resources
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/issuer: nextcloud-letsencrypt
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"    
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1g"
+    avp.kubernetes.io/path: "argocd/data/argocd-vault-plugin/nextcloud"   
+
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - <nextcloud-url> # nextcloud-url
+    secretName: nextcloud-cert
+  rules:
+  - host: <nextcloud-url> #nextcloud-url
+
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nextcloud-external
+            port:
+              number: 80
+---
+# Separate Ingress for Nextcloud (HTTP backend) - External Resources Namespace
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextcloud-ingress
+  namespace: external-resources
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/issuer: "vault-issuer"  # Using Issuer instead of ClusterIssuer
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # HTTP backend (default)
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+    avp.kubernetes.io/path: "argocd/data/argocd-vault-plugin/nextcloud"   
+spec:
+  tls:
+  - hosts:
+    - <nextcloud-internal-url>  #nextcloud-internal-url
+    secretName: diagon-ally-tls 
+  rules:
+  - host: <nextcloud-internal-url>  #nextcloud-internal-url
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nextcloud-external
+            port:
+              number: 30027

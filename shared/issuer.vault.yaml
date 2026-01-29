@@ -1,0 +1,18 @@
+# Vault Issuer using ServiceAccount authentication
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vault-issuer
+  namespace: external-resources
+  annotations:
+    avp.kubernetes.io/path: "secret/data/infra/vault/prod"
+spec:
+  vault:
+    server: <vault_url>
+    path: <pki_sign_int_path>
+    auth:
+      kubernetes:
+        mountPath: /v1/auth/kubernetes
+        role: cert-manager-pki
+        serviceAccountRef:
+          name: cert-manager

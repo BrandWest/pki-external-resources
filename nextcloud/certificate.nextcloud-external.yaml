@@ -1,0 +1,17 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nextcloud-cert
+  namespace: external-resources
+  annotations:
+    avp.kubernetes.io/path: "argocd/data/argocd-vault-plugin/nextcloud"
+spec:
+  secretName: nextcloud-cert
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  issuerRef:
+    name: nextcloud-letsencrypt
+    kind: Issuer
+  commonName: <nextcloud-url> # nextcloud-url
+  dnsNames:
+    - <nextcloud-url> # nextcloud-url
