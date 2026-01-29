@@ -4,7 +4,7 @@ metadata:
   name: nextcloud-external
   namespace: external-resources
   annotations:
-    avp.kubernetes.io/path: "argocd/data/argocd-vault-plugin/nextcloud"
+    avp.kubernetes.io/path: "secret/data/apps/nextcloud/prod"
 spec:
   type: ExternalName
   externalName: <nextcloud-internal-url>
@@ -20,7 +20,7 @@ metadata:
   name: nextcloud-external
   namespace: external-resources
   annotations:
-    avp.kubernetes.io/path: "argocd/data/argocd-vault-plugin/truenas"
+    avp.kubernetes.io/path: ""
 subsets:
   - addresses:
       - ip: <truenas_ip>
@@ -36,7 +36,7 @@ metadata:
   name: nextcloud-external
   namespace: external-resources
   annotations:
-    avp.kubernetes.io/path: "argocd/data/argocd-vault-plugin/nextcloud"
+    avp.kubernetes.io/path: "secret/data/apps/nextcloud/prod"
 spec:
   type: ExternalName
   externalName: <nextcloud-internal-url>  #nextcloud-internal-url
@@ -54,7 +54,7 @@ metadata:
   name: nextcloud-external
   namespace: external-resources
   annotations:
-    avp.kubernetes.io/path: "argocd/data/argocd-vault-plugin/nextcloud"
+    avp.kubernetes.io/path: "secret/data/apps/nextcloud/prod"
 spec:
   type: ExternalName
   externalName: <nextcloud-internal-url>  #nextcloud-internal-url
@@ -83,7 +83,7 @@ metadata:
   name: nextcloud-external-ip
   namespace: external-resources
   annotations:
-    avp.kubernetes.io/path: "argocd/data/argocd-vault-plugin/truenas"
+    avp.kubernetes.io/path: "secret/data/infra/truenas/prod"
 subsets:
 - addresses:
   - ip: <truenas_ip>
