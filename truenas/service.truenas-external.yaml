@@ -1,21 +1,21 @@
-# Nextcloud Service (headless, routes to external IP via Endpoints)
+# TrueNAS Service (headless, routes to external IP via Endpoints)
 apiVersion: v1
 kind: Service
 metadata:
-  name: nextcloud-external
+  name: truenas-external
   namespace: external-resources
 spec:
   ports:
-  - port: 8888
-    targetPort: 8888
+  - port: 8443
+    targetPort: 8443
     protocol: TCP
-    name: http
+    name: https
 ---
-# Endpoints pointing to TrueNAS nextcloud
+# Endpoints pointing to TrueNAS
 apiVersion: v1
 kind: Endpoints
 metadata:
-  name: nextcloud-external
+  name: truenas-external
   namespace: external-resources
   annotations:
     avp.kubernetes.io/path: "secret/data/infra/truenas/prod"
@@ -23,5 +23,5 @@ subsets:
 - addresses:
   - ip: <truenas_ip>
   ports:
-  - port: 8888
-    name: http
+  - port: 8443
+    name: https

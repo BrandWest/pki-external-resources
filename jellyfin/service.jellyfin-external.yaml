@@ -1,21 +1,21 @@
-# Nextcloud Service (headless, routes to external IP via Endpoints)
+# Jellyfin Service (headless, routes to external IP via Endpoints)
 apiVersion: v1
 kind: Service
 metadata:
-  name: nextcloud-external
+  name: jellyfin-external
   namespace: external-resources
 spec:
   ports:
-  - port: 8888
-    targetPort: 8888
+  - port: 30013
+    targetPort: 30013
     protocol: TCP
     name: http
 ---
-# Endpoints pointing to TrueNAS nextcloud
+# Endpoints pointing to TrueNAS jellyfin
 apiVersion: v1
 kind: Endpoints
 metadata:
-  name: nextcloud-external
+  name: jellyfin-external
   namespace: external-resources
   annotations:
     avp.kubernetes.io/path: "secret/data/infra/truenas/prod"
@@ -23,5 +23,5 @@ subsets:
 - addresses:
   - ip: <truenas_ip>
   ports:
-  - port: 8888
+  - port: 30013
     name: http

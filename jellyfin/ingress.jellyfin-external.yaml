@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nextcloud-ingress
+  name: jellyfin-ingress
   namespace: external-resources
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -9,34 +9,37 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-    avp.kubernetes.io/path: "secret/data/apps/nextcloud/prod"
+    # WebSocket support for Jellyfin
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    avp.kubernetes.io/path: "secret/data/apps/jellyfin/prod"
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - <nextcloud-internal-url>
+    - <jellyfin-url>
     secretName: diagon-ally-tls
   - hosts:
-    - <nextcloud-internal-url-styx>
+    - <jellyfin-url-styx>
     secretName: styx-myth-tls
   rules:
-  - host: <nextcloud-internal-url>
+  - host: <jellyfin-url>
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: nextcloud-external
+            name: jellyfin-external
             port:
-              number: 8888
-  - host: <nextcloud-internal-url-styx>
+              number: 30013
+  - host: <jellyfin-url-styx>
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: nextcloud-external
+            name: jellyfin-external
             port:
-              number: 8888
+              number: 30013

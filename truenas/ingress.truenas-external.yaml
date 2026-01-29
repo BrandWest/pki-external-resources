@@ -1,42 +1,43 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nextcloud-ingress
+  name: truenas-ingress
   namespace: external-resources
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/proxy-ssl-verify: "false"
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-    avp.kubernetes.io/path: "secret/data/apps/nextcloud/prod"
+    avp.kubernetes.io/path: "secret/data/apps/truenas/prod"
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - <nextcloud-internal-url>
+    - <truenas-url>
     secretName: diagon-ally-tls
   - hosts:
-    - <nextcloud-internal-url-styx>
+    - <truenas-url-styx>
     secretName: styx-myth-tls
   rules:
-  - host: <nextcloud-internal-url>
+  - host: <truenas-url>
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: nextcloud-external
+            name: truenas-external
             port:
-              number: 8888
-  - host: <nextcloud-internal-url-styx>
+              number: 8443
+  - host: <truenas-url-styx>
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: nextcloud-external
+            name: truenas-external
             port:
-              number: 8888
+              number: 8443
