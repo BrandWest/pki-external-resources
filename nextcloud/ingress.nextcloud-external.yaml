@@ -17,7 +17,7 @@ spec:
     - <nextcloud-url> # nextcloud-url (diagon.ally)
     secretName: diagon-ally-tls
   - hosts:
-    - <nextcloud-url-styx> # nextcloud-url (styx.myth)
+    - <nextcloud-internal-url-styx> # nextcloud-url (styx.myth)
     secretName: styx-myth-tls
   rules:
   - host: <nextcloud-url> # nextcloud-url (diagon.ally)
@@ -30,7 +30,7 @@ spec:
             name: nextcloud-external
             port:
               number: 80
-  - host: <nextcloud-url-styx> # nextcloud-url (styx.myth)
+  - host: <nextcloud-internal-url-styx> # nextcloud-url (styx.myth)
     http:
       paths:
       - path: /
