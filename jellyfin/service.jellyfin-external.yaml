@@ -6,8 +6,8 @@ metadata:
   namespace: external-resources
 spec:
   ports:
-  - port: 30013
-    targetPort: 30013
+  - port: 8096
+    targetPort: 8096
     protocol: TCP
     name: http
 ---
@@ -23,5 +23,5 @@ subsets:
 - addresses:
   - ip: <truenas_ip>
   ports:
-  - port: 30013
+  - port: 8096
     name: http
