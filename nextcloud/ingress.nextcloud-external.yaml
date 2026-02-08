@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-    avp.kubernetes.io/path: "secret/data/apps/nextcloud/prod"
+    avp.kubernetes.io/path: "secrets/data/apps/nextcloud/prod"
 spec:
   ingressClassName: nginx
   tls:

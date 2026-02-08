@@ -12,7 +12,7 @@ metadata:
     # WebSocket support for Jellyfin
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-    avp.kubernetes.io/path: "secret/data/apps/jellyfin/prod"
+    avp.kubernetes.io/path: "secrets/data/apps/jellyfin/prod"
     nginx.org/server-snippets: |
       proxy_set_header Authorization $http_x_emby_authorization;
   nginx.org/proxy-body-size: "0"
