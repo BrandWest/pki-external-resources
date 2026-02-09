@@ -27,7 +27,7 @@ metadata:
     avp.kubernetes.io/path: "secrets/data/platform/vault/prod"
 spec:
   vault:
-    server: <vault_url>
+    server: https://<vault_url>
     path: <pki_sign_int_path_styx>
     auth:
       kubernetes:
