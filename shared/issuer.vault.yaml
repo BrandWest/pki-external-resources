@@ -32,6 +32,6 @@ spec:
     auth:
       kubernetes:
         mountPath: /v1/auth/kubernetes
-        role: cert-manager-pki
+        role: cert-manager
         serviceAccountRef:
           name: cert-manager
