@@ -23,9 +23,6 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - <secrets/data/platform/vault/prod>
-    secretName: diagon-ally-tls
-  - hosts:
     - <jellyfin-url-styx>
     secretName: styx-myth-tls
   rules:
