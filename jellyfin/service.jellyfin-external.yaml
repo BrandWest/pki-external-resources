@@ -10,6 +10,10 @@ spec:
     targetPort: 8096
     protocol: TCP
     name: http
+  - port: 30013
+    targetPort: 30013
+    protocol: TCP
+    name: gui
 ---
 # Endpoints pointing to TrueNAS jellyfin
 apiVersion: v1
@@ -25,3 +29,5 @@ subsets:
   ports:
   - port: 8096
     name: http
+  - port: 30013
+    name: gui

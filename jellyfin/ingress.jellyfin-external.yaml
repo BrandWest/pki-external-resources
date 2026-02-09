@@ -4,8 +4,7 @@ metadata:
   name: jellyfin-ingress
   namespace: external-resources
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
@@ -15,16 +14,16 @@ metadata:
     avp.kubernetes.io/path: "secrets/data/apps/jellyfin/prod"
     nginx.org/server-snippets: |
       proxy_set_header Authorization $http_x_emby_authorization;
-  nginx.org/proxy-body-size: "0"
-  nginx.org/proxy-read-timeout: "3600"
-  nginx.org/proxy-send-timeout: "3600" 
-  nginx.org/ssl-redirect: "true"
+    nginx.org/proxy-body-size: "0"
+    nginx.org/proxy-read-timeout: "3600"
+    nginx.org/proxy-send-timeout: "3600"
+    nginx.org/ssl-redirect: "false"
 
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - <jellyfin-url>
+    - <secret/data>
     secretName: diagon-ally-tls
   - hosts:
     - <jellyfin-url-styx>
@@ -39,7 +38,7 @@ spec:
           service:
             name: jellyfin-external
             port:
-              number: 8096
+              number: 30013
   - host: <jellyfin-url-styx>
     http:
       paths:
@@ -49,4 +48,4 @@ spec:
           service:
             name: jellyfin-external
             port:
-              number: 8096
+              number: 30013
